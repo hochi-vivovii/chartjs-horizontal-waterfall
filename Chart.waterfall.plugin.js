@@ -1,4 +1,13 @@
 (function(){
+    var helpers = Chart.helpers;
+    helpers.sum = function(array) {
+        return array.reduce(function(v1, v2) {
+            if (!isNaN(v2)) {
+                return v1 + v2;
+            }
+            return v1;
+        }, 0);
+    };
     var defaultConfig = {
     	position: 'left',
     	ticks: {
@@ -51,7 +60,6 @@
             var me = this;
             var opts = me.options;
             var tickOpts = opts.ticks;
-            var helpers = Chart.helpers;
             // Figure out what the max number of ticks we can support it is based on the size of
             // the axis area. For now, we say that the minimum tick spacing in pixels must be 50
             // We also limit the maximum number of ticks to 11 which gives a nice 10 squares on
@@ -92,15 +100,6 @@
             Chart.Scale.prototype.convertTicksToLabels.call(me);
         },
     	determineDataLimits: function() {
-            var helpers = Chart.helpers;
-            helpers.sum = function(array) {
-                return array.reduce(function(v1, v2) {
-                    if (!isNaN(v2)) {
-                        return v1 + v2;
-                    }
-                    return v1;
-                }, 0);
-            };
     		var me = this;
     		var opts = me.options;
     		var chart = me.chart;
